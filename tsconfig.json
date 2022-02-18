@@ -15,7 +15,8 @@
     "outDir": "./lib",
     "sourceMap": true,
     "strict": true,
-    "target": "ESNext"
+    "target": "ESNext",
+    "skipLibCheck": true,
   },
   "exclude": ["lib/**/*"],
   "include": ["src/index.tsx", "src/template", "src/types.ts"]

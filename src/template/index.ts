@@ -44,6 +44,16 @@ iframe.allow="autoplay;fullscreen"
 iframe.id = PLAYER_ID;
 document.body.appendChild(iframe);
 var player = $f(iframe);
+
+const  sendEvent = (evt, data) => {
+  // Passes events through the bridge
+  var payload = {
+    name: evt,
+    data: data
+  };
+  window.ReactNativeWebView.postMessage(JSON.stringify(payload));
+}
+
 player.addEvent('ready', function() {
   // Ideally we could just iterate over event names and add the sendEvent
   // handler to each of them, however that doesn't work because sendEvent
@@ -66,14 +76,6 @@ player.addEvent('ready', function() {
 player.api(message, function(data) {
   sendEvent(message, data);
 });
-const  sendEvent = (evt, data) => {
-  // Passes events through the bridge
-  var payload = {
-    name: evt,
-    data: data
-  };
-  window.ReactNativeWebView.postMessage(JSON.stringify(payload));
-}
 }
 
 webViewBridge();
