@@ -116,6 +116,7 @@ export const Vimeo: React.FC<LayoutProps> = ({
       console.log(payload?.name)
 
       let bridgeMessageHandler = handlers[payload?.name]
+      console.log('-------------', bridgeMessageHandler)
       if (bridgeMessageHandler) bridgeMessageHandler(payload?.data)
     },
     [toggleAutoPlay, handlers]
