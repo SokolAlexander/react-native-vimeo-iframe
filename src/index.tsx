@@ -31,7 +31,6 @@ export const Vimeo: React.FC<LayoutProps> = ({
   const [autoPlayValue, setAutoPlay] = useState<boolean>(autoPlay)
   const muted = Platform.OS === 'android' && autoPlayValue
   const toggleAutoPlay = useCallback(() => {
-    console.log('toggleAutoPlay', autoPlayValue)
     setAutoPlay(!autoPlayValue)
   }, [autoPlayValue])
 
@@ -76,8 +75,6 @@ export const Vimeo: React.FC<LayoutProps> = ({
   }, [onReady])
 
   const registerHandlers = useCallback(() => {
-    console.log(' calling register handlers')
-
     registerBridgeEventHandler('ready', onReadyDefault)
     registerBridgeEventHandler('play', onPlay)
     registerBridgeEventHandler('playProgress', onPlayProgress)
@@ -100,25 +97,18 @@ export const Vimeo: React.FC<LayoutProps> = ({
   }
 
   useEffect(() => {
-    console.log('registering handlers')
     registerHandlers()
   }, [videoId, scalesPageToFit])
 
   const onBridgeMessage = useCallback(
     (event: any) => {
-      console.log('bridgeMessage', event)
       const message = event.nativeEvent.data
       let payload
       try {
         payload = JSON.parse(message)
-        if (payload?.name === 'finish') {
-          // toggleAutoPlay()
-        }
       } catch (err) {
         return
       }
-
-      console.log('bridgeMessage', event)
 
       let bridgeMessageHandler = handlers[payload?.name]
       if (bridgeMessageHandler) bridgeMessageHandler(payload?.data)
@@ -162,7 +152,6 @@ export const Vimeo: React.FC<LayoutProps> = ({
       setBuiltInZoomControls={false}
       setDisplayZoomControls={false}
       automaticallyAdjustContentInsets
-      onNavigationStateChange={(a) => console.log(a?.url)}
     />
   )
 }
