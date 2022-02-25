@@ -34,7 +34,7 @@ export const Vimeo: React.FC<LayoutProps> = ({
     setAutoPlay(!autoPlayValue)
   }, [autoPlayValue])
 
-  const handlers: any = {}
+  const handlers: any = useRef({})
 
   const player = useCallback(
     (action: PlayerActions) => {
@@ -75,7 +75,6 @@ export const Vimeo: React.FC<LayoutProps> = ({
   }, [onReady])
 
   const registerHandlers = useCallback(() => {
-    console.log(!!onFinish)
     registerBridgeEventHandler('ready', onReadyDefault)
     registerBridgeEventHandler('play', onPlay)
     registerBridgeEventHandler('playProgress', onPlayProgress)
@@ -94,7 +93,7 @@ export const Vimeo: React.FC<LayoutProps> = ({
   ])
 
   const registerBridgeEventHandler = (eventName: string, handler: any) => {
-    handlers[eventName] = handler
+    handlers.current[eventName] = handler
   }
 
   useEffect(() => {
@@ -104,7 +103,6 @@ export const Vimeo: React.FC<LayoutProps> = ({
   const onBridgeMessage = useCallback(
     (event: any) => {
       const message = event.nativeEvent.data
-      console.log(message)
       let payload
       try {
         payload = JSON.parse(message)
@@ -112,11 +110,8 @@ export const Vimeo: React.FC<LayoutProps> = ({
         console.warn('err', err)
         return
       }
-
-      console.log(payload?.name)
-
-      let bridgeMessageHandler = handlers[payload?.name]
-      console.log('-------------', bridgeMessageHandler)
+      
+      let bridgeMessageHandler = handlers.current?.[payload?.name]
       if (bridgeMessageHandler) bridgeMessageHandler(payload?.data)
     },
     [toggleAutoPlay, handlers]
