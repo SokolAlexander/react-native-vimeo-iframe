@@ -103,14 +103,17 @@ export const Vimeo: React.FC<LayoutProps> = ({
 
   const onBridgeMessage = useCallback(
     (event: any) => {
-      console.log(event)
       const message = event.nativeEvent.data
+      console.log(message)
       let payload
       try {
         payload = JSON.parse(message)
       } catch (err) {
+        console.warn('err', err)
         return
       }
+
+      console.log(payload?.name)
 
       let bridgeMessageHandler = handlers[payload?.name]
       if (bridgeMessageHandler) bridgeMessageHandler(payload?.data)
