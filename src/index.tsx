@@ -75,6 +75,7 @@ export const Vimeo: React.FC<LayoutProps> = ({
   }, [onReady])
 
   const registerHandlers = useCallback(() => {
+    console.log(!!onFinish)
     registerBridgeEventHandler('ready', onReadyDefault)
     registerBridgeEventHandler('play', onPlay)
     registerBridgeEventHandler('playProgress', onPlayProgress)
@@ -102,6 +103,7 @@ export const Vimeo: React.FC<LayoutProps> = ({
 
   const onBridgeMessage = useCallback(
     (event: any) => {
+      console.log(event)
       const message = event.nativeEvent.data
       let payload
       try {
