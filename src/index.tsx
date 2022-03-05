@@ -110,7 +110,7 @@ export const Vimeo: React.FC<LayoutProps> = ({
         console.warn('err', err)
         return
       }
-      
+
       let bridgeMessageHandler = handlers.current?.[payload?.name]
       if (bridgeMessageHandler) bridgeMessageHandler(payload?.data)
     },
@@ -120,6 +120,8 @@ export const Vimeo: React.FC<LayoutProps> = ({
   useEffect(() => {
     getVimeoPlayer && getVimeoPlayer(player)
   }, [getVimeoPlayer, player])
+
+  console.log('--======================--', initTime)
 
   return (
     <WebView

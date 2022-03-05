@@ -33,7 +33,7 @@ if (!vid) {
 let iframe;
 iframe = document.createElement('iframe');
 iframe.src =
- 'https://player.vimeo.com/video/' + vid + '#t=${time} + '?api=1' + '&autoplay=' + isAutoPlaying + '&loop=' + isLooping + '&controls=' + showControls  + '&speed=' + showSpeed +'&player_id=' + PLAYER_ID + '&muted=' + isMuted';
+ 'https://player.vimeo.com/video/' + vid + '#t=${time} + '?api=1' + '&autoplay=' + isAutoPlaying + '&loop=' + isLooping + '&controls=' + showControls + '&speed=' + showSpeed +'&player_id=' + PLAYER_ID + '&muted=' + isMuted';
 iframe.width = '100%';
 iframe.height = '98%';
 iframe.frameBorder = '0';
